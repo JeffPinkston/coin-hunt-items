@@ -1,21 +1,18 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
 
-export async function getCubies() {
-    const data = await axios
-        .get('https://stats.coinhuntworldwiki.com/records/cubies');
-    console.log(data)
-    return data;
+function useGetCubies() {
+    const [cubieData, setCubieData] = useState([])
+    useEffect(() => {
+        setCubieData([])
+        axios
+            .get('http://localhost:3000/cubies')
+            .then((response) => {
+                setCubieData(response.data.records)
+            })
+    }, [setCubieData])
+
+    return cubieData
 }
 
-export function useCubies() {
-    return useQuery(["cubies"], () => getCubies());
-}
-
-// export function useCubies() {
-//     const data = useQuery(["cubies"], () => axios
-//         .get('https://stats.coinhuntworldwiki.com/records/cubies'));
-//     console.log(data)
-//     return data;
-// }
-
+export { useGetCubies }

@@ -1,5 +1,3 @@
-export const getImagePath = (name, folder, size) => {
-    const imagePath = `/assets/images/${folder}/${size}/${name.toLowerCase().replaceAll(' ', '_')}.png`;
-    console.log(imagePath)
-    return imagePath;
+export const cubieLoader = ({src}) => {
+    return `/assets/images/cubies/60px/${String(src).toLowerCase().replaceAll(' ', '_')}.png`;
 }
