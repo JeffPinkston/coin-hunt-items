@@ -1,18 +1,22 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 function useGetCubies() {
     const [cubieData, setCubieData] = useState([])
+
     useEffect(() => {
-        setCubieData([])
-        axios
-            .get('http://localhost:3000/cubies')
-            .then((response) => {
-                setCubieData(response.data.records)
-            })
-    }, [setCubieData])
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:3000/cubies')
+            setCubieData(response.data)
+        }
+
+        fetchData()
+            .catch(console.error)
+    }, [])
 
     return cubieData
 }
+
+
 
 export { useGetCubies }
